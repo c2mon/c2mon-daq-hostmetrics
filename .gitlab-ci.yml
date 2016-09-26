@@ -1,0 +1,2 @@
+build:
+  script: mvn -q -B -T4 clean deploy --settings settings.xml
