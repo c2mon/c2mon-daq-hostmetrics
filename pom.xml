@@ -49,10 +49,6 @@
     <developerConnection>scm:git:git@gitlab.cern.ch:7999/c2mon/c2mon-daq-hostmetrics.git</developerConnection>
   </scm>
 
-  <properties>
-    <c2mon.daq.name>hostmetrics</c2mon.daq.name>
-  </properties>
-
   <dependencies>
     <!-- C2MON dependencies -->
     <dependency>
