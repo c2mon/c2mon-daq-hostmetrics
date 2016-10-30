@@ -7,6 +7,9 @@ import cern.c2mon.shared.common.datatag.ValueUpdate;
 import lombok.extern.slf4j.Slf4j;
 import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
+import oshi.software.os.OSFileStore;
+import oshi.software.os.OperatingSystem;
+import oshi.util.FormatUtil;
 
 import java.util.concurrent.Executors;
 
@@ -26,12 +29,19 @@ public class HostMetricsMessageHandler extends EquipmentMessageHandler {
     IEquipmentMessageSender sender = getEquipmentMessageSender();
     sender.confirmEquipmentStateOK();
 
-    HardwareAbstractionLayer hal = new SystemInfo().getHardware();
+    SystemInfo si = new SystemInfo();
+    HardwareAbstractionLayer hal = si.getHardware();
+    OperatingSystem os = si.getOperatingSystem();
 
     Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -> {
       sender.update("mem.avail", new ValueUpdate(hal.getMemory().getAvailable()));
       sender.update("mem.swap.used", new ValueUpdate(hal.getMemory().getSwapUsed()));
       sender.update("cpu.loadavg", new ValueUpdate(hal.getProcessor().getSystemLoadAverage()));
+      sender.update("cpu.temp", new ValueUpdate(hal.getSensors().getCpuTemperature()));
+      sender.update("cpu.voltage", new ValueUpdate(hal.getSensors().getCpuVoltage()));
+      sender.update("os.numprocs", new ValueUpdate(os.getProcessCount()));
+      sender.update("os.numthreads", new ValueUpdate(os.getThreadCount()));
+      sender.update("os.fds", new ValueUpdate(os.getFileSystem().getOpenFileDescriptors()));
     }, 0, 1, SECONDS);
   }
 
