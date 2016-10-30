@@ -43,6 +43,8 @@ public class HostMetricsMessageHandler extends EquipmentMessageHandler {
       sender.update("os.numthreads", new ValueUpdate(os.getThreadCount()));
       sender.update("os.fds", new ValueUpdate(os.getFileSystem().getOpenFileDescriptors()));
     }, 0, 1, SECONDS);
+
+    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(sender::sendSupervisionAlive, 0, 30, SECONDS);
   }
 
   @Override
