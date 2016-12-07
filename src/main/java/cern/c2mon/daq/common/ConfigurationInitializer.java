@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Configuration;
  * @author Justin Lewis Salmon
  */
 @Configuration
-@AutoConfigureBefore(ConfigurationController.class)
 public class ConfigurationInitializer {
 
   @Bean
