@@ -5,7 +5,7 @@
   <parent>
     <artifactId>c2mon-daq-parent</artifactId>
     <groupId>cern.c2mon.daq</groupId>
-    <version>1.8.3</version>
+    <version>1.8.6-SNAPSHOT</version>
   </parent>
 
   <artifactId>c2mon-daq-hostmetrics</artifactId>
@@ -53,6 +53,11 @@
     <dependency>
       <groupId>cern.c2mon.daq</groupId>
       <artifactId>c2mon-daq-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cern.c2mon.client</groupId>
+      <artifactId>c2mon-client-core</artifactId>
+      <version>1.8.6-SNAPSHOT</version>
     </dependency>
 
     <!-- 3rd party dependencies -->
