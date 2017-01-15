@@ -41,7 +41,6 @@ public class HostMetricsMessageHandler extends EquipmentMessageHandler {
         sender.update("os.numprocs", new ValueUpdate(os.getProcessCount()));
         sender.update("os.numthreads", new ValueUpdate(os.getThreadCount()));
         sender.update("os.fds", new ValueUpdate(os.getFileSystem().getOpenFileDescriptors()));
-        sender.update("os.fds.max", new ValueUpdate(os.getFileSystem().getMaxFileDescriptors()));
       } catch (Exception e) {
         log.error("Error sending tag update", e);
       }
