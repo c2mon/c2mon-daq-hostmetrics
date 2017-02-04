@@ -60,8 +60,8 @@ public class ConfigurationInitializer {
         .addMetadata("location", "864")
         .addMetadata("responsible", "John Doe").build());
 
-    configurationService.createAlarm("cpu.loadavg", Alarm.create("TEST", "TEST", 1, new RangeCondition(Double.class, 5, 10))
-        .addMetadata("causes", "Somebody done messed up").build());
+    configurationService.createAlarm("cpu.loadavg", Alarm.create("cpu.loadavg", "high", 1, new RangeCondition(Double.class, 5, 100))
+        .addMetadata("causes", "The CPU load is too high").build());
 
     configurationService.createDataTag(equipmentName, DataTag.create("cpu.temp", Double.class, new DataTagAddress())
         .description("CPU temperature")
