@@ -46,7 +46,9 @@ public class HostMetricsMessageHandler extends EquipmentMessageHandler {
       }
     }, 0, 1, SECONDS);
 
-    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(sender::sendSupervisionAlive, 0, 30, SECONDS);
+    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -> {
+      sender.sendSupervisionAlive();
+    }, 0, 30, SECONDS);
   }
 
   @Override
