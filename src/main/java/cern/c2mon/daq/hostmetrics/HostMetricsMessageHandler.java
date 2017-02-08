@@ -9,6 +9,8 @@ import oshi.SystemInfo;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.software.os.OperatingSystem;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.concurrent.Executors;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
@@ -31,16 +33,18 @@ public class HostMetricsMessageHandler extends EquipmentMessageHandler {
     HardwareAbstractionLayer hal = si.getHardware();
     OperatingSystem os = si.getOperatingSystem();
 
+    String hostName = System.getProperty("c2mon.daq.hostname");
+
     Executors.newScheduledThreadPool(1).scheduleAtFixedRate(() -> {
       try {
-        sender.update("mem.avail", new ValueUpdate(hal.getMemory().getAvailable()));
-        sender.update("mem.swap.used", new ValueUpdate(hal.getMemory().getSwapUsed()));
-        sender.update("cpu.loadavg", new ValueUpdate(hal.getProcessor().getSystemLoadAverage()));
-        sender.update("cpu.temp", new ValueUpdate(hal.getSensors().getCpuTemperature()));
-        sender.update("cpu.voltage", new ValueUpdate(hal.getSensors().getCpuVoltage()));
-        sender.update("os.numprocs", new ValueUpdate(os.getProcessCount()));
-        sender.update("os.numthreads", new ValueUpdate(os.getThreadCount()));
-        sender.update("os.fds", new ValueUpdate(os.getFileSystem().getOpenFileDescriptors()));
+        sender.update(hostName + "/mem.avail", new ValueUpdate(hal.getMemory().getAvailable()));
+        sender.update(hostName + "/mem.swap.used", new ValueUpdate(hal.getMemory().getSwapUsed()));
+        sender.update(hostName + "/cpu.loadavg", new ValueUpdate(hal.getProcessor().getSystemLoadAverage()));
+        sender.update(hostName + "/cpu.temp", new ValueUpdate(hal.getSensors().getCpuTemperature()));
+        sender.update(hostName + "/cpu.voltage", new ValueUpdate(hal.getSensors().getCpuVoltage()));
+        sender.update(hostName + "/os.numprocs", new ValueUpdate(os.getProcessCount()));
+        sender.update(hostName + "/os.numthreads", new ValueUpdate(os.getThreadCount()));
+        sender.update(hostName + "/os.fds", new ValueUpdate(os.getFileSystem().getOpenFileDescriptors()));
       } catch (Exception e) {
         log.error("Error sending tag update", e);
       }

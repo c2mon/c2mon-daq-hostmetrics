@@ -16,7 +16,6 @@ import cern.c2mon.shared.client.configuration.api.alarm.Alarm;
 import cern.c2mon.shared.client.configuration.api.alarm.RangeCondition;
 import cern.c2mon.shared.client.configuration.api.tag.CommandTag;
 import cern.c2mon.shared.client.configuration.api.tag.DataTag;
-import cern.c2mon.shared.client.metadata.Metadata;
 import cern.c2mon.shared.common.datatag.DataTagAddress;
 import cern.c2mon.shared.common.datatag.address.impl.SimpleHardwareAddressImpl;
 
@@ -33,64 +32,69 @@ public class ConfigurationInitializer {
 
   private void configureTags(ApplicationContext context) throws UnknownHostException {
     ConfigurationService configurationService = context.getBean(ConfigurationService.class);
-    DaqProperties properties = context.getBean(DaqProperties.class);
 
-    String processName = properties.getName();
-    String equipmentName = InetAddress.getLocalHost().getHostName();
+    String hostName = InetAddress.getLocalHost().getHostName();
+    String processName = "P_" + hostName.toUpperCase();
+    System.setProperty("c2mon.daq.hostname", hostName);
 
     configurationService.removeProcess(processName);
 
     ConfigurationReport report = configurationService.createProcess(processName);
-    report = configurationService.createEquipment(processName, equipmentName, HostMetricsMessageHandler.class.getName());
+    if (report.getStatusDescription().contains("already exists")) {
+      return;
+    }
 
-    configurationService.createDataTag(equipmentName, DataTag.create("mem.avail", Long.class, new DataTagAddress())
+    configurationService.createEquipment(processName, hostName, HostMetricsMessageHandler.class.getName());
+
+    configurationService.createDataTag(hostName, DataTag.create(hostName + "/mem.avail", Long.class, new DataTagAddress())
         .description("Available memory")
         .unit("bytes")
         .addMetadata("location", 104)
         .addMetadata("responsible", "Joe Bloggs").build());
 
-    configurationService.createDataTag(equipmentName, DataTag.create("mem.swap.used", Long.class, new DataTagAddress())
+    configurationService.createDataTag(hostName, DataTag.create(hostName + "/mem.swap.used", Long.class, new DataTagAddress())
         .description("Amount of swap space used")
         .unit("bytes")
         .addMetadata("location", 104)
         .addMetadata("responsible", "Joe Bloggs").build());
 
-    configurationService.createDataTag(equipmentName, DataTag.create("cpu.loadavg", Double.class, new DataTagAddress())
+    configurationService.createDataTag(hostName, DataTag.create(hostName + "/cpu.loadavg", Double.class, new DataTagAddress())
         .description("CPU load average for the last minute")
         .addMetadata("location", "864")
         .addMetadata("responsible", "John Doe").build());
 
-    configurationService.createAlarm("cpu.loadavg", Alarm.create("cpu.loadavg", "high", 1, new RangeCondition(Double.class, 5, 100))
-        .addMetadata("causes", "The CPU load is too high").build());
+    configurationService.createAlarm(hostName + "/cpu.loadavg",
+        Alarm.create(hostName + "/cpu.loadavg", "high", 1, new RangeCondition(Double.class, 5, 100))
+             .addMetadata("causes", "The CPU load is too high").build());
 
-    configurationService.createDataTag(equipmentName, DataTag.create("cpu.temp", Double.class, new DataTagAddress())
+    configurationService.createDataTag(hostName, DataTag.create(hostName + "/cpu.temp", Double.class, new DataTagAddress())
         .description("CPU temperature")
         .unit("°C")
         .addMetadata("location", "864")
         .addMetadata("responsible", "John Doe").build());
 
-    configurationService.createDataTag(equipmentName, DataTag.create("cpu.voltage", Double.class, new DataTagAddress())
+    configurationService.createDataTag(hostName, DataTag.create(hostName + "/cpu.voltage", Double.class, new DataTagAddress())
         .description("CPU voltage")
         .unit("Volts")
         .addMetadata("location", "864")
         .addMetadata("responsible", "John Doe").build());
 
-    configurationService.createDataTag(equipmentName, DataTag.create("os.numprocs", Integer.class, new DataTagAddress())
+    configurationService.createDataTag(hostName, DataTag.create(hostName + "/os.numprocs", Integer.class, new DataTagAddress())
         .description("Number of running processes")
         .addMetadata("location", "513")
         .addMetadata("responsible", "Sue West").build());
 
-    configurationService.createDataTag(equipmentName, DataTag.create("os.numthreads", Integer.class, new DataTagAddress())
+    configurationService.createDataTag(hostName, DataTag.create(hostName + "/os.numthreads", Integer.class, new DataTagAddress())
         .description("Number of running threads")
         .addMetadata("location", "513")
         .addMetadata("responsible", "Sue West").build());
 
-    configurationService.createDataTag(equipmentName, DataTag.create("os.fds", Long.class, new DataTagAddress())
+    configurationService.createDataTag(hostName, DataTag.create(hostName + "/os.fds", Long.class, new DataTagAddress())
         .description("Number of open file descriptors")
         .addMetadata("location", "513")
         .addMetadata("responsible", "Sue West").build());
 
-    configurationService.createCommandTag(equipmentName, CommandTag.create("ping", String.class, new SimpleHardwareAddressImpl("ping"),
+    configurationService.createCommandTag(hostName, CommandTag.create(hostName + "/ping", String.class, new SimpleHardwareAddressImpl("ping"),
         5000, 2000, 100, 0, "test", "test", "test")
         .build());
   }
