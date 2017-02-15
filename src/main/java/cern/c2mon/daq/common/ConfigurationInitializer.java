@@ -32,9 +32,10 @@ public class ConfigurationInitializer {
 
   private void configureTags(ApplicationContext context) throws UnknownHostException {
     ConfigurationService configurationService = context.getBean(ConfigurationService.class);
+    DaqProperties properties = context.getBean(DaqProperties.class);
 
     String hostName = InetAddress.getLocalHost().getHostName();
-    String processName = "P_" + hostName.toUpperCase();
+    String processName = properties.getName();
     System.setProperty("c2mon.daq.hostname", hostName);
 
     configurationService.removeProcess(processName);
