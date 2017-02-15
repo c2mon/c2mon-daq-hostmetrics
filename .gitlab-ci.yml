@@ -10,6 +10,6 @@ build_and_publish:
 # Just run tests on feature branches
 build:
   script:
-    - mvn -q -U -B -T4 clean test
+    - mvn -q -U -B -T4 clean test -DskipDockerBuild -DskipDockerTag --settings settings.xml
   except:
     - master
