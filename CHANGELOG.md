@@ -13,9 +13,11 @@ For more details on a given release, please check also the [Milestone planning](
 
 ### Fixed
 
+## 0.0.3 - 2017-04-01
+### Changed
+- Upgrade to C2MON v1.8.15
 
-
-## [0.0.2]
+## [0.0.2] - 2017-02-15
 ### Fixed
 - Fixed startup problems (!1)
 
