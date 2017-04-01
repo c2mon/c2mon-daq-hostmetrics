@@ -33,13 +33,18 @@ extracted from the JDK download.
 `mvn package -DskipDockerBuild -DskipDockerTag`
 
 ## Startup
-Make sure that your C2MON server is running before launching the Hostmetrics DAQ. 
+Make sure that your [C2MON] server is running before launching the Hostmetrics DAQ. 
 In the example commands below we assume that C2MON is running on `localhost`.
 
-### Running from tarball (Linux/Unix only)
+### Running from IDE
+To start the Hostmetrics DAQ from your preferred IDE, specify as main class `cern.c2mon.daq.DaqStartup` and add the following VM argument:
+`-Dc2mon.daq.name=P_HOST01`
+
+
+### Running from tarball (Linux/Unix)
 Once you have built your distribution tarball, extract it and run the following command:
 ```shell
-${HOSTMETRICS_HOME}/bin/daqprocess.sh start P_HOST01
+${DAQ_HOME}/bin/daqprocess.sh start P_HOST01
 ```
 
 ### Running from Docker image
@@ -47,6 +52,7 @@ ${HOSTMETRICS_HOME}/bin/daqprocess.sh start P_HOST01
 docker run --rm --name daq-hostmetrics -it --net=host -e "C2MON_PORT_61616_TCP=tcp://localhost:61616" \
   gitlab-registry.cern.ch/c2mon/c2mon-daq-hostmetrics bin/C2MON-DAQ-STARTUP.jvm -f P_HOST01
 ```
+
 
 ## License
 C2MON is released under the [GNU LGPLv3 License][].
@@ -62,3 +68,4 @@ C2MON is released under the [GNU LGPLv3 License][].
 [Pull requests]: http://help.github.com/send-pull-requests
 [contributor guidelines]: /CONTRIBUTING.md
 [GNU LGPLv3 License]: /LICENSE
+[C2MON]: http://github.com/c2mon/c2mon
