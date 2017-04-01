@@ -32,11 +32,18 @@ extracted from the JDK download.
 ### Compile and test; build jar and distribution tarball
 `mvn package -DskipDockerBuild -DskipDockerTag`
 
+## Startup
+Make sure that your C2MON server is running before launching the Hostmetrics DAQ. 
+In the example commands below we assume that C2MON is running on `localhost`.
 
-## Running from Docker image
-Make sure that your C2MON server is running before launching the Docker image. 
-In the example command below we assume that C2MON is running on `localhost`.
+### Running from tarball (Linux/Unix only)
+Once you have built your distribution tarball, extract it and run the following command:
+```shell
+${HOSTMETRICS_HOME}/bin/daqprocess.sh start P_HOST01
 ```
+
+### Running from Docker image
+```shell
 docker run --rm --name daq-hostmetrics -it --net=host -e "C2MON_PORT_61616_TCP=tcp://localhost:61616" \
   gitlab-registry.cern.ch/c2mon/c2mon-daq-hostmetrics bin/C2MON-DAQ-STARTUP.jvm -f P_HOST01
 ```
