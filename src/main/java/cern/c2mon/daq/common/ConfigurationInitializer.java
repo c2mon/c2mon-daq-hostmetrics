@@ -70,6 +70,11 @@ public class ConfigurationInitializer {
         .addMetadata("location", "864")
         .addMetadata("responsible", "John Doe").build());
 
+    configurationService.createAlarm(hostName + "/cpu.temp",
+        Alarm.create("/cpu.temp", "high", 1, new RangeCondition(Integer.class, 0, 90))
+            .addMetadata("causes", "The CPU temperature is too high")
+            .build());
+
     configurationService.createDataTag(hostName, DataTag.create(hostName + "/cpu.voltage", Double.class, new DataTagAddress())
         .description("CPU voltage")
         .unit("Volts")
@@ -80,11 +85,6 @@ public class ConfigurationInitializer {
         .description("Number of running processes")
         .addMetadata("location", "513")
         .addMetadata("responsible", "Sue West").build());
-
-    configurationService.createAlarm(hostName + "/os.numprocs",
-        Alarm.create("/os.nump", "high", 1, new RangeCondition(Integer.class, 1, 1000))
-            .addMetadata("causes", "The CPU load is too high")
-            .addMetadata("more", "some details").build());
 
     configurationService.createDataTag(hostName, DataTag.create(hostName + "/os.numthreads", Integer.class, new DataTagAddress())
         .description("Number of running threads")
