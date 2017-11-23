@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
     <artifactId>c2mon-daq-parent</artifactId>
     <groupId>cern.c2mon.daq</groupId>
-    <version>1.8.16-SNAPSHOT</version>
+    <version>1.8.27-SNAPSHOT</version>
   </parent>
 
   <artifactId>c2mon-daq-hostmetrics</artifactId>
@@ -27,7 +28,7 @@
     <dependency>
       <groupId>cern.c2mon.client</groupId>
       <artifactId>c2mon-client-core</artifactId>
-      <version>1.8.16-SNAPSHOT</version>
+      <version>1.8.27-SNAPSHOT</version>
     </dependency>
 
     <!-- 3rd party dependencies -->
@@ -45,9 +46,16 @@
   <build>
     <plugins>
       <!-- Activate plugin configurations to build a tarball and a docker image -->
-      <plugin><artifactId>maven-dependency-plugin</artifactId></plugin>
-      <plugin><artifactId>maven-assembly-plugin</artifactId></plugin>
-      <plugin><groupId>com.spotify</groupId><artifactId>docker-maven-plugin</artifactId></plugin>
+      <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+      </plugin>
     </plugins>
   </build>
 </project>
