@@ -24,11 +24,6 @@
       <groupId>cern.c2mon.daq</groupId>
       <artifactId>c2mon-daq-core</artifactId>
     </dependency>
-    <dependency>
-      <groupId>cern.c2mon.client</groupId>
-      <artifactId>c2mon-client-core</artifactId>
-      <version>1.8.29</version>
-    </dependency>
 
     <!-- 3rd party dependencies -->
     <dependency>
