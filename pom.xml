@@ -5,7 +5,7 @@
   <parent>
     <artifactId>c2mon-daq-parent</artifactId>
     <groupId>cern.c2mon.daq</groupId>
-    <version>1.8.30-SNAPSHOT</version>
+    <version>1.8.38</version>
   </parent>
 
   <artifactId>c2mon-daq-hostmetrics</artifactId>
@@ -32,9 +32,9 @@
 
     <!-- 3rd party dependencies -->
     <dependency>
-      <groupId>com.github.dblock</groupId>
+      <groupId>com.github.oshi</groupId>
       <artifactId>oshi-core</artifactId>
-      <version>3.2</version>
+      <version>3.5.0</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
