@@ -9,7 +9,7 @@
   </parent>
 
   <artifactId>c2mon-daq-hostmetrics</artifactId>
-  <version>0.0.4-SNAPSHOT</version>
+  <version>0.0.5-SNAPSHOT</version>
 
   <scm>
     <url>https://gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics</url>
@@ -47,7 +47,11 @@
       <!-- Activate plugin configurations to build a tarball and a docker image -->
       <plugin><artifactId>maven-dependency-plugin</artifactId></plugin>
       <plugin><artifactId>maven-assembly-plugin</artifactId></plugin>
-      <plugin><groupId>com.spotify</groupId><artifactId>docker-maven-plugin</artifactId></plugin>
+      <plugin><artifactId>maven-antrun-plugin</artifactId></plugin>
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+      </plugin>
     </plugins>
   </build>
 </project>
