@@ -1,6 +1,6 @@
 stages:
   - build
-  - deploy 
+  - deploy
   - sonar
 
 # Get the settings file from c2mon project
@@ -10,19 +10,19 @@ before_script:
 # Fully build and publish master branch
 build_and_publish:
   type: deploy
-  script: 
+  script:
     - mvn -q -U -B -T4 clean deploy --settings settings.xml
   only:
     - master
-    
+
 # Just run tests on feature branches
 build:
   type: build
   script:
-    - mvn -q -U -B -T4 clean test -DskipDockerBuild -DskipDockerTag --settings settings.xml
+    - mvn -q -U -B -T4 clean test --settings settings.xml
   except:
     - master
-    
+
 sonar_preview:
   type: sonar
   script:
