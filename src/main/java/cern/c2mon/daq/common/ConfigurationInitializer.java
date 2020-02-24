@@ -78,6 +78,7 @@ public class ConfigurationInitializer {
         .unit("°C")
         .addMetadata("responsible", "John Doe").build());
 
+    // Causes an exception on the server from 1.9.3-SNAPSHOT onwards (RangeAlarmCondition is the new class)
     configurationService.createAlarm(metrics.getCpuTemperature(),
         Alarm.create("/cpu.temp", "high", 1, new RangeCondition(Integer.class, 0, 90))
             .addMetadata("causes", "The CPU temperature is too high")
