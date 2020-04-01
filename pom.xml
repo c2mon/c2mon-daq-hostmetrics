@@ -44,8 +44,8 @@
 
   <repositories>
       <repository>
-          <id>nexus-c2mon</id>
-          <name>C2MON Releases</name>
+          <id>releases</id>
+          <name>Releases</name>
           <url>https://repository.cern.ch/nexus/content/repositories/c2mon-releases/</url>
           <releases><enabled>true</enabled></releases>
           <snapshots><enabled>true</enabled></snapshots>
