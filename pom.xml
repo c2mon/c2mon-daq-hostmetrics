@@ -58,9 +58,35 @@
       </snapshots>
     </repository-->
   </repositories>
-
+  <pluginManagement>
+    <plugins>
+        <plugin>
+          <groupId>com.amashchenko.maven.plugin</groupId>
+          <artifactId>gitflow-maven-plugin</artifactId>
+          <version>1.14.0</version>
+        </plugin>
+     </plugins>
+  </pluginManagement>
   <build>
     <plugins>
+      <plugin>
+          <groupId>com.amashchenko.maven.plugin</groupId>
+          <artifactId>gitflow-maven-plugin</artifactId>
+          <configuration>
+            <gitFlowConfig>
+                <versionTagPrefix>v</versionTagPrefix>
+            </gitFlowConfig>
+          </configuration>
+      </plugin>
+      <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.5</version>
+          <configuration>
+             <generateBackupPoms>false</generateBackupPoms>
+             <processAllModules>true</processAllModules>
+          </configuration>
+      </plugin>
       <!-- Activate plugin configurations to build a tarball and a docker image -->
       <plugin><artifactId>maven-dependency-plugin</artifactId></plugin>
       <plugin><artifactId>maven-assembly-plugin</artifactId></plugin>
