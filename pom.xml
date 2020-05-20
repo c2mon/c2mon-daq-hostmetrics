@@ -5,8 +5,7 @@
   <parent>
     <artifactId>c2mon-daq-parent</artifactId>
     <groupId>cern.c2mon.daq</groupId>
-    <!-- Not compatible with the latest RangeAlarmConditionChanges, needs 1.9.3+ -->
-    <version>1.9.2</version>
+    <version>1.9.5</version>
   </parent>
 
   <artifactId>c2mon-daq-hostmetrics</artifactId>
