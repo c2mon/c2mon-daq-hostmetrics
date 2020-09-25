@@ -72,6 +72,13 @@
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<configuration>
+					<processParent>true</processParent>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
