@@ -8,7 +8,6 @@
 		<version>1.9.11-SNAPSHOT</version>
 	</parent>
 	<artifactId>c2mon-daq-hostmetrics</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
 	<scm>
 		<url>https://gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics</url>
 		<connection>scm:git:ssh://git@gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics.git</connection>
