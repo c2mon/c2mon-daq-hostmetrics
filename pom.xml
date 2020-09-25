@@ -1,100 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <artifactId>c2mon-daq-parent</artifactId>
-    <groupId>cern.c2mon.daq</groupId>
-    <version>1.9.8</version>
-  </parent>
-
-  <artifactId>c2mon-daq-hostmetrics</artifactId>
-  <version>0.0.6-SNAPSHOT</version>
-
-  <scm>
-    <url>https://gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics</url>
-    <connection>scm:git:ssh://git@gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics.git</connection>
-    <developerConnection>scm:git:ssh://git@gitlab.cern.ch:7999/c2mon/c2mon-daq-hostmetrics.git</developerConnection>
-    <tag>HEAD</tag>
-  </scm>
-
-  <dependencies>
-    <!-- C2MON dependencies -->
-    <dependency>
-      <groupId>cern.c2mon.daq</groupId>
-      <artifactId>c2mon-daq-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>cern.c2mon.client</groupId>
-      <artifactId>c2mon-client-core</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
-
-    <!-- 3rd party dependencies -->
-    <dependency>
-      <groupId>com.github.oshi</groupId>
-      <artifactId>oshi-core</artifactId>
-      <version>3.5.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-    </dependency>
-  </dependencies>
-
-  <repositories>
-      <repository>
-          <id>releases</id>
-          <name>Releases</name>
-          <url>https://repository.cern.ch/nexus/content/repositories/c2mon-releases/</url>
-          <releases><enabled>true</enabled></releases>
-          <snapshots><enabled>true</enabled></snapshots>
-      </repository>
-    <!--repository>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>c2mon-daq-parent</artifactId>
+		<groupId>cern.c2mon.daq</groupId>
+		<!-- Not compatible with the latest RangeAlarmConditionChanges, needs 1.9.3+ -->
+		<version>1.9.11-SNAPSHOT</version>
+	</parent>
+	<artifactId>c2mon-daq-hostmetrics</artifactId>
+	<version>0.0.5-SNAPSHOT</version>
+	<scm>
+		<url>https://gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics</url>
+		<connection>scm:git:ssh://git@gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics.git</connection>
+		<developerConnection>scm:git:ssh://git@gitlab.cern.ch:7999/c2mon/c2mon-daq-hostmetrics.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+	<properties>
+		<gitlab-repo>${project.artifactId}</gitlab-repo>
+		<dockerhub-repo>${project.artifactId}</dockerhub-repo>
+	</properties>
+	<dependencies>
+		<!-- C2MON dependencies -->
+		<dependency>
+			<groupId>cern.c2mon.daq</groupId>
+			<artifactId>c2mon-daq-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cern.c2mon.client</groupId>
+			<artifactId>c2mon-client-core</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+		<!-- 3rd party dependencies -->
+		<dependency>
+			<groupId>com.github.oshi</groupId>
+			<artifactId>oshi-core</artifactId>
+			<version>3.5.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+	</dependencies>
+	<repositories>
+		<repository>
+			<id>releases</id>
+			<name>Releases</name>
+			<url>https://repository.cern.ch/nexus/content/repositories/c2mon-releases/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<!--repository>
       <id>snapshot</id>
       <url>http://artifactory/development</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
     </repository-->
-  </repositories>
-  <build>
-    <pluginManagement>
-      <plugins>
-          <plugin>
-            <groupId>com.amashchenko.maven.plugin</groupId>
-            <artifactId>gitflow-maven-plugin</artifactId>
-            <version>1.14.0</version>
-          </plugin>
-       </plugins>
-    </pluginManagement>
-    <plugins>
-      <plugin>
-          <groupId>com.amashchenko.maven.plugin</groupId>
-          <artifactId>gitflow-maven-plugin</artifactId>
-          <configuration>
-            <gitFlowConfig>
-                <versionTagPrefix>v</versionTagPrefix>
-            </gitFlowConfig>
-          </configuration>
-      </plugin>
-      <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>versions-maven-plugin</artifactId>
-          <version>2.5</version>
-          <configuration>
-             <generateBackupPoms>false</generateBackupPoms>
-             <processAllModules>true</processAllModules>
-          </configuration>
-      </plugin>
-      <!-- Activate plugin configurations to build a tarball and a docker image -->
-      <plugin><artifactId>maven-dependency-plugin</artifactId></plugin>
-      <plugin><artifactId>maven-assembly-plugin</artifactId></plugin>
-      <plugin><artifactId>maven-antrun-plugin</artifactId></plugin>
-      <plugin>
-        <groupId>com.google.cloud.tools</groupId>
-        <artifactId>jib-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
+	</repositories>
+	<build>
+		<plugins>
+			<!-- Activate plugin configurations to build a tarball and a docker image -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

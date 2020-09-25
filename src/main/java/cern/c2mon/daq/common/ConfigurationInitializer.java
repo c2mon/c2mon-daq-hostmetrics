@@ -80,7 +80,7 @@ public class ConfigurationInitializer {
 
     // Causes an exception on the server from 1.9.3-SNAPSHOT onwards (RangeAlarmCondition is the new class)
     configurationService.createAlarm(metrics.getCpuTemperature(),
-        Alarm.create("/cpu.temp", "high", 1, new RangeAlarmCondition<Integer>(0, 90))
+        Alarm.create("/cpu.temp", "high", 1, new RangeAlarmCondition(0, 90, true))
             .addMetadata("causes", "The CPU temperature is too high")
             .build());
 
