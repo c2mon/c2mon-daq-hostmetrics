@@ -28,7 +28,7 @@ build:
   tags:
     - docker-privileged
   script:
-    - mvn -q -U -B -T4 clean test --settings settings-ci.xml
+    - mvn -U -B -T4 clean test --settings settings-ci.xml
   except:
     - tags
     - master
@@ -43,6 +43,6 @@ sonar_preview:
 quality_assurance:
   stage: sonar
   script:
-    - mvn package dependency-check:aggregate sonar:sonar -Dmaven.test.skip=true -Dsonar.dependencyCheck.reportPath=target/dependency-check-report.xml --settings settings-ci.xml
+    - mvn package sonar:sonar -Dmaven.test.skip=true -Dsonar.host.url=https://cvl-sonarqube.cern.ch -Dsonar.dependencyCheck.reportPath=target/dependency-check-report.xml --settings settings-ci.xml
   only:
     - master
