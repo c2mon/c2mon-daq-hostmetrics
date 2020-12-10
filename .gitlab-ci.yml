@@ -5,6 +5,10 @@ stages:
   - deploy
   - sonar
 
+image:
+  name: gitlab-registry.cern.ch/industrial-controls/sw-infra/mvn-dind:3.6.2-19.3.0-jdk11
+  entrypoint: [""]
+
 # Get the settings file from c2mon project
 before_script:
   - curl -L -O https://cern.ch/maven/settings-ci.xml
@@ -12,6 +16,8 @@ before_script:
 # Fully build and publish master branch
 build_and_publish:
   stage: deploy
+  tags:
+    - docker-privileged
   script:
     - mvn -B deploy --settings settings-ci.xml
   only:
@@ -21,13 +27,16 @@ build_and_publish:
 # Just run tests on feature branches
 build:
   stage: build
+  tags:
+    - docker-privileged
   script:
     - mvn -B test --settings settings-ci.xml
   except:
+    - tags
     - master
 
 sonar_preview:
-  type: sonar
+  stage: sonar
   script:
     - mvn -B compile sonar:sonar -Ddependencies.set.all -Dmaven.test.skip=true -Djavax.net.ssl.trustStore=${CACERTS} -Dsonar.analysis.mode=preview -Dsonar.gitlab.commit_sha=$CI_BUILD_REF -Dsonar.gitlab.ref_name=$CI_BUILD_REF_NAME -Dsonar.gitlab.project_id=$CI_PROJECT_ID -Dsonar.gitlab.max_major_issues_gate=0 --settings settings-ci.xml
   except:
