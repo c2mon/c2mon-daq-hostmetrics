@@ -58,6 +58,9 @@
                 <artifactId>maven-assembly-plugin</artifactId>
             </plugin>
             <plugin>
+                <artifactId>jib-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
                 <configuration>
