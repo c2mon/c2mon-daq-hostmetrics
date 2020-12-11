@@ -13,7 +13,7 @@ image:
 before_script:
   - curl -L -O https://cern.ch/maven/settings-ci.xml
 
-# Fully build and publish master branch
+# Fully build and publish develop branch (for snapshots) and tags (for releases)
 build_and_publish:
   stage: deploy
   tags:
