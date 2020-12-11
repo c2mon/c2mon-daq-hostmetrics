@@ -59,6 +59,7 @@
             </plugin>
             <plugin>
                 <artifactId>jib-maven-plugin</artifactId>
+                <version>2.5.2</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
