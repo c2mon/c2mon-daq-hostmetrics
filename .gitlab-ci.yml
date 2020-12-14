@@ -30,7 +30,7 @@ build:
   tags:
     - docker-privileged
   script:
-    - mvn -B test --settings settings-ci.xml
+    - mvn -B test -DskipDockerBuild -DskipDockerTag --settings settings-ci.xml
   except:
     - tags
     - master
@@ -42,6 +42,7 @@ sonar_preview:
   except:
     - master
     - tags
+    - develop
 
 quality_assurance:
   stage: sonar
@@ -49,6 +50,4 @@ quality_assurance:
     - mvn package sonar:sonar -Ddependencies.set.all -Dmaven.test.skip=true -Djavax.net.ssl.trustStore=${CACERTS} -Dsonar.dependencyCheck.reportPath=target/dependency-check-report.xml --settings settings-ci.xml
   only:
     - master
-  except:
-    - tags
-
+    - develop

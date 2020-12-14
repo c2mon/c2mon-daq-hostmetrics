@@ -11,7 +11,7 @@
     <artifactId>c2mon-daq-hostmetrics</artifactId>
     <version>0.0.6-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <description>A simple, exemplary C1MON DAQ module for publishing metrics about the current host using the OSHI library</description>
+    <description>A simple, exemplary C2MON DAQ module for publishing metrics about the current host using the OSHI library</description>
 
     <scm>
         <url>https://gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics</url>
@@ -52,14 +52,20 @@
         <plugins>
             <!-- Activate plugin configurations to build a tarball and a docker image -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
             </plugin>
             <plugin>
+                <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>2.5.2</version>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
