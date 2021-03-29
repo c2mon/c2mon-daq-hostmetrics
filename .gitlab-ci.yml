@@ -21,6 +21,7 @@ build_and_publish:
     - mvn -q -U -B -T4 clean deploy --settings settings-ci.xml
   only:
     - tags
+    - master
     - develop
     
 # Just run unit and integration tests on feature branches
