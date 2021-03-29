@@ -1,5 +1,3 @@
-image: gitlab-registry.cern.ch/industrial-controls/sw-infra/jenkins/mvn-plus-jdk
-
 stages:
   - build
   - deploy
