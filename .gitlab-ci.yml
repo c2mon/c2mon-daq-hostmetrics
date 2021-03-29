@@ -24,8 +24,8 @@ build_and_publish:
     - develop
     
 # Just run unit and integration tests on feature branches
-build:
-  stage: test
+test:
+  stage: build
   script:
     - docker info
     - mvn -U -B clean test failsafe:integration-test -DskipDockerBuild -DskipDockerTag --settings settings-ci.xml
@@ -35,8 +35,8 @@ build:
     - master
 
 # Just run unit and integration tests on feature branches
-build:
-  stage: package
+build_and_package:
+  stage: build
   script:
     - docker info
     - mvn -B pacakge failsafe:integration-test -DskipDockerBuild -DskipDockerTag --settings settings-ci.xml
