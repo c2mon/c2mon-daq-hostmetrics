@@ -38,6 +38,7 @@ build:
     - mvn -B test failsafe:integration-test -DskipDockerBuild -DskipDockerTag --settings settings-ci.xml
   except:
     - tags
+    - develop
 
 sonar_preview:
   stage: sonar
