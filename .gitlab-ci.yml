@@ -32,7 +32,7 @@ build_and_publish:
     - develop
     
 # Just run unit and integration tests on feature branches
-build:
+test:
   stage: build
   script:
     - mvn -B test failsafe:integration-test -DskipDockerBuild -DskipDockerTag --settings settings-ci.xml
