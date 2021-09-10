@@ -21,16 +21,16 @@ C2MON uses a [Maven][]-based build system.
 
 ### Prerequisites
 
-[Git][] and [JDK 8 update 20 or later][JDK8 build]
+[Git][] and [JDK 11 or later][JDK11 build]
 
-Be sure that your `JAVA_HOME` environment variable points to the `jdk1.8.0` folder
+Be sure that your `JAVA_HOME` environment variable points to the `jdk-11` folder
 extracted from the JDK download.
 
 ### Check out sources
 `git clone git@github.com:c2mon/c2mon-daq-hostmetrics.git`
 
 ### Compile and test; build jar and distribution tarball
-`mvn package -DskipDockerBuild -DskipDockerTag`
+`mvn package -DskipDockerBuild -DskipDockerTag --settings ./settings.xml`
 
 ## Startup
 Make sure that your [C2MON] server is running before launching the Hostmetrics DAQ. 
@@ -42,10 +42,26 @@ To start the Hostmetrics DAQ from your preferred IDE, specify as main class `cer
 
 
 ### Running from tarball (Linux/Unix)
-Once you have built your distribution tarball, extract it and run the following command:
-```shell
-${DAQ_HOME}/bin/daqprocess.sh start P_HOST01
-```
+
+First you need to download the latest stable distribution tarball.
+
+The c2mon-daq-hostmetrics tarball release can be downloaded from [CERN Nexus Repository](https://nexus.web.cern.ch/nexus/#nexus-search;gav~cern.c2mon.daq~c2mon-daq-hostmetrics~~tar.gz~)
+
+Please check [here](https://gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics/tags) for the latest stable releaes version.
+
+#### Installing
+
+- Download the [latest stable distribution tarball](https://nexus.web.cern.ch/nexus/service/local/artifact/maven/redirect?r=cern-nexus&g=cern.c2mon.daq&a=c2mon-daq-hostmetrics&v=LATEST&e=tar.gz&c=dist)
+- Note, that the tarball does not include a root folder, so you have to create this yourself before extracting it:
+  
+  ```bash
+  mkdir c2mon-daq-hostmetrics; tar -xzf c2mon-daq-hostmetrics-1.0.x-dist.tar.gz -C c2mon-daq-hostmetrics
+  ```
+- Once you have installed your distribution tarball run the following command:
+
+  ```shell
+  ${DAQ_HOME}/bin/daqprocess.sh start P_HOST01
+  ```
 
 ### Running from Docker image
 ```shell
@@ -64,7 +80,7 @@ C2MON is released under the [GNU LGPLv3 License][].
 [Find here]: https://gitlab.cern.ch/c2mon/c2mon-daq-hostmetrics/milestones?state=all
 [Maven]: http://maven.apache.org
 [Git]: http://help.github.com/set-up-git-redirect
-[JDK8 build]: http://www.oracle.com/technetwork/java/javase/downloads
+[JDK11 build]: http://www.oracle.com/technetwork/java/javase/downloads
 [Pull requests]: http://help.github.com/send-pull-requests
 [contributor guidelines]: /CONTRIBUTING.md
 [GNU LGPLv3 License]: /LICENSE
